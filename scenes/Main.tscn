@@ -1,24 +1,18 @@
-[gd_scene load_steps=18 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/Main.gd" id="1"]
 [ext_resource type="Script" path="res://scripts/GameManager.gd" id="2"]
 [ext_resource type="PackedScene" path="res://scenes/Launcher.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://scenes/Enemy.tscn" id="4"]
-[ext_resource type="Script" path="res://scripts/HUD.gd" id="5"]
-[ext_resource type="Resource" path="res://resources/DartData.tres" id="6"]
-[ext_resource type="Resource" path="res://resources/HammerData.tres" id="7"]
-[ext_resource type="Resource" path="res://resources/MagnetData.tres" id="8"]
-[ext_resource type="Resource" path="res://resources/ShieldData.tres" id="9"]
-[ext_resource type="PackedScene" path="res://scenes/Projectile.tscn" id="10"]
+[ext_resource type="PackedScene" path="res://scenes/Player.tscn" id="5"]
+[ext_resource type="Script" path="res://scripts/HUD.gd" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/Projectile.tscn" id="7"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_1"]
+[sub_resource type="BoxMesh" id="1"]
 size = Vector3(20, 1, 20)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+[sub_resource type="BoxShape3D" id="2"]
 size = Vector3(20, 1, 20)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_2"]
-size = Vector3(20, 2, 1)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1")
@@ -31,43 +25,29 @@ shadow_enabled = true
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("2")
+enemy_scene = ExtResource("4")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 10, 10, 10)
 projection = 1
-size = 15.0
+size = 20.0
 
 [node name="Board" type="Node3D" parent="."]
 
 [node name="Floor" type="StaticBody3D" parent="Board"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Board/Floor"]
-mesh = SubResource("BoxMesh_1")
+mesh = SubResource("1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Floor"]
-shape = SubResource("BoxShape3D_1")
+shape = SubResource("2")
 
-[node name="Wall1" type="StaticBody3D" parent="Board"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Wall1"]
-shape = SubResource("BoxShape3D_2")
+[node name="Player" parent="." instance=ExtResource("5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Launcher" parent="." instance=ExtResource("3")]
-dart_data = ExtResource("6")
-hammer_data = ExtResource("7")
-magnet_data = ExtResource("8")
-shield_data = ExtResource("9")
-projectile_scene = ExtResource("10")
-
-[node name="Enemy1" parent="." instance=ExtResource("4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 2)
-
-[node name="Enemy2" parent="." instance=ExtResource("4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -2)
-
-[node name="Enemy3" parent="." instance=ExtResource("4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+projectile_scene = ExtResource("7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -78,27 +58,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("5")
+script = ExtResource("6")
 
-[node name="EnergyLabel" type="Label" parent="CanvasLayer/HUD"]
+[node name="StatsPanel" type="VBoxContainer" parent="CanvasLayer/HUD"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
+
+[node name="EnergyLabel" type="Label" parent="CanvasLayer/HUD/StatsPanel"]
+layout_mode = 2
 text = "ENERGIA: 3"
 
-[node name="HealthLabel" type="Label" parent="CanvasLayer/HUD"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 50.0
+[node name="HealthLabel" type="Label" parent="CanvasLayer/HUD/StatsPanel"]
+layout_mode = 2
 text = "SALUD: 100"
 
-[node name="BlockLabel" type="Label" parent="CanvasLayer/HUD"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 80.0
+[node name="BlockLabel" type="Label" parent="CanvasLayer/HUD/StatsPanel"]
+layout_mode = 2
 text = "BLOQUEO: 0"
 
-[node name="CardBar" type="HBoxContainer" parent="CanvasLayer/HUD"]
+[node name="CombatUI" type="Control" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardBar" type="HBoxContainer" parent="CanvasLayer/HUD/CombatUI"]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -106,25 +93,25 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -200.0
-offset_top = -60.0
+offset_top = -80.0
 offset_right = 200.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 10
+alignment = 1
 
-[node name="ButtonDart" type="Button" parent="CanvasLayer/HUD/CardBar"]
-layout_mode = 2
-text = "1: DARDO"
-
-[node name="ButtonHammer" type="Button" parent="CanvasLayer/HUD/CardBar"]
-layout_mode = 2
-text = "2: MARTILLO"
-
-[node name="ButtonMagnet" type="Button" parent="CanvasLayer/HUD/CardBar"]
-layout_mode = 2
-text = "3: IMAN"
-
-[node name="ButtonShield" type="Button" parent="CanvasLayer/HUD/CardBar"]
-layout_mode = 2
-text = "4: ESCUDO"
+[node name="EndTurnButton" type="Button" parent="CanvasLayer/HUD/CombatUI"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -60.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "PASAR TURNO"
