@@ -8,7 +8,6 @@ size = Vector3(1, 1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_1"]
 size = Vector3(1, 1, 1)
 
-[resource]
 [node name="Enemy" type="StaticBody3D"]
 script = Ext_Resource("1_x8y2q")
 contact_monitor = true

@@ -11,7 +11,6 @@
 [ext_resource type="Resource" path="res://resources/ShieldData.tres" id="9_shield"]
 [ext_resource type="PackedScene" path="res://scenes/Projectile.tscn" id="10_projectile"]
 
-[resource]
 [node name="Main" type="Node3D"]
 script = Ext_Resource("1_x8y2q")
 
@@ -34,7 +33,7 @@ size = 15.0
 [node name="Floor" type="StaticBody3D" parent="Board"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Board/Floor"]
-mesh = BoxMesh.new() # Default size 1x1x1
+mesh = BoxMesh.new()
 scale = Vector3(20, 1, 20)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Floor"]
@@ -43,7 +42,8 @@ scale = Vector3(20, 1, 20)
 
 [node name="Wall1" type="StaticBody3D" parent="Board"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10)
-[node name="CollisionShape3D" parent="Board/Wall1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Board/Wall1"]
 shape = BoxShape3D.new()
 scale = Vector3(20, 2, 1)
 
