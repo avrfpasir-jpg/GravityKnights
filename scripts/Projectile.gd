@@ -22,13 +22,31 @@ func _ready():
 	# Gravity-free setup
 	gravity_scale = 0.0
 	
+	# Connect collision signal
+	body_entered.connect(_on_body_entered)
+	
 	# Type specific setup
 	if data.type == CardData.Type.MAGNET:
 		is_magnet = true
 		_setup_magnet_area()
 	elif data.type == CardData.Type.SHIELD:
 		is_shield = true
-		# Possible visualization change (e.g., turn blue/shield-like)
+
+func _on_body_entered(body: Node):
+	if not is_active: return
+	
+	# Check if we hit an enemy
+	if body.is_in_group("enemies") and body.has_method("take_damage"):
+		# Calculate damage based on impact force (velocity * mass)
+		var impact_force = linear_velocity.length() * mass
+		# Damage could be a mix of fixed card damage and impact force
+		# For now, let's use impact force as the primary factor
+		body.take_damage(impact_force)
+		
+		# If it's a "Dardo" or "Hammer", maybe deactivate on hit? 
+		# Or just allow it to bounce. 
+		# Let's say after certain damage it loses energy
+		pass
 
 func _setup_magnet_area():
 	attract_area = Area3D.new()
@@ -51,20 +69,18 @@ func _physics_process(delta):
 		_anchor_shield()
 
 func _anchor_shield():
-	# Stop and freeze to become a physical wall
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
 	freeze = true 
 	is_active = false
 
 func _attract_bodies(delta):
+	if not attract_area: return
 	for body in attract_area.get_overlapping_bodies():
 		if body is RigidBody3D and body != self:
 			var direction = (global_position - body.global_position).normalized()
-			# Apply attraction force towards magnet
 			body.apply_central_force(direction * magnet_force)
 
-# This would be called by the Launcher/UI script on spawn
 func launch(direction: Vector3):
 	apply_central_impulse(direction * data.initial_velocity)
 
@@ -72,7 +88,3 @@ func stop_projectile():
 	is_active = false
 	linear_velocity = Vector3.ZERO
 	angular_velocity = Vector3.ZERO
-	if is_magnet:
-		# Maybe trigger an explosion or just deactivate? 
-		# For MVP, we'll just stop everything at turn end.
-		pass
