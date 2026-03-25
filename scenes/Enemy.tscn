@@ -9,12 +9,12 @@ size = Vector3(1, 1, 1)
 size = Vector3(1, 1, 1)
 
 [node name="Enemy" type="StaticBody3D"]
-script = Ext_Resource("1_x8y2q")
+script = ExtResource("1_x8y2q")
 contact_monitor = true
 max_contacts_reported = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = Sub_Resource("BoxShape3D_1")
+shape = SubResource("BoxShape3D_1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = Sub_Resource("BoxMesh_1")
+mesh = SubResource("BoxMesh_1")

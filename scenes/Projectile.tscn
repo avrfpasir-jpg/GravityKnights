@@ -10,12 +10,12 @@ radius = 0.4
 height = 0.8
 
 [node name="Projectile" type="RigidBody3D"]
-script = Ext_Resource("1_x8y2q")
+script = ExtResource("1_x8y2q")
 contact_monitor = true
 max_contacts_reported = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = Sub_Resource("SphereShape3D_1")
+shape = SubResource("SphereShape3D_1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = Sub_Resource("SphereMesh_1")
+mesh = SubResource("SphereMesh_1")

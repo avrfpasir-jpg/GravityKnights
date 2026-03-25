@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" path="res://scenes/Projectile.tscn" id="10_projectile"]
 
 [node name="Main" type="Node3D"]
-script = Ext_Resource("1_x8y2q")
+script = ExtResource("1_x8y2q")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.866, -0.433, 0.25, 0, 0.5, 0.866, -0.5, -0.75, 0.433, 0, 10, 0)
@@ -21,7 +21,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 [node name="GameManager" type="Node" parent="."]
-script = Ext_Resource("2_2c3y2")
+script = ExtResource("2_2c3y2")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, 10, 10, 10)
@@ -47,20 +47,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 10)
 shape = BoxShape3D.new()
 scale = Vector3(20, 2, 1)
 
-[node name="Launcher" parent="." instance=Ext_Resource("3_launcher")]
-dart_data = Ext_Resource("6_dart")
-hammer_data = Ext_Resource("7_hammer")
-magnet_data = Ext_Resource("8_magnet")
-shield_data = Ext_Resource("9_shield")
-projectile_scene = Ext_Resource("10_projectile")
+[node name="Launcher" parent="." instance=ExtResource("3_launcher")]
+dart_data = ExtResource("6_dart")
+hammer_data = ExtResource("7_hammer")
+magnet_data = ExtResource("8_magnet")
+shield_data = ExtResource("9_shield")
+projectile_scene = ExtResource("10_projectile")
 
-[node name="Enemy1" parent="." instance=Ext_Resource("4_enemy")]
+[node name="Enemy1" parent="." instance=ExtResource("4_enemy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, 2)
 
-[node name="Enemy2" parent="." instance=Ext_Resource("4_enemy")]
+[node name="Enemy2" parent="." instance=ExtResource("4_enemy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.5, -2)
 
-[node name="Enemy3" parent="." instance=Ext_Resource("4_enemy")]
+[node name="Enemy3" parent="." instance=ExtResource("4_enemy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.5, -2)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -72,7 +72,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = Ext_Resource("5_hud")
+script = ExtResource("5_hud")
 
 [node name="EnergyLabel" type="Label" parent="CanvasLayer/HUD"]
 layout_mode = 0
