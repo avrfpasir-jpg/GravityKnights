@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/CardData.gd" id="1_x8y2q"]
+
+[resource]
+script = Ext_Resource("1_x8y2q")
+name = "Imán"
+type = 2
+mass = 1.0
+initial_velocity = 15.0
+bounce = 0.1
+friction = 0.8
+energy_cost = 1
+block_amount = 0

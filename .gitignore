@@ -1,0 +1,17 @@
+# Godot 4 specifics
+.godot/
+# Godot 3 specifics
+.import/
+export.cfg
+export_presets.cfg
+# General
+*.log
+*.tmp
+*.bak
+# Binaries
+*.exe
+*.zip
+*.7z
+# OS
+.DS_Store
+Thumbs.db

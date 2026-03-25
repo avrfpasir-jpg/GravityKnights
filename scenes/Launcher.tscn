@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/LauncherUI.gd" id="1_x8y2q"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 1.0
+
+[resource]
+[node name="Launcher" type="Node3D"]
+script = Ext_Resource("1_x8y2q")
+
+[node name="TrajectoryLine" type="MeshInstance3D" parent="."]
+visible = false
+mesh = Sub_Resource("CylinderMesh_1")
+rotation = Vector3(1.5708, 0, 0) # Rotate to lie flat (90 degrees in radians)
